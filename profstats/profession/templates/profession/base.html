@@ -1,4 +1,5 @@
 {% load profession_tags %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,9 +9,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'profession/css/style.css' %}">
 </head>
 <body>
-  <header></header>
+  <header>
+      <img src="{% static 'profession/images/logo.svg' %}" class="logo">
+      <p>Инженер-программист</p>
+  </header>
   <main>
     <nav>
         <ul>
@@ -20,6 +25,13 @@
     {% block content %}
     {% endblock %}
   </main>
-  <footer></footer>
+  <footer>
+      <p>
+          Окладников Сергей Борисович
+      </p>
+      <p>
+          РИ-210940
+      </p>
+  </footer>
 </body>
 </html>
