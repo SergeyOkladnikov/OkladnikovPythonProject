@@ -1,29 +1,22 @@
 from django.shortcuts import render, HttpResponse
 from .models import *
 
-nav_elements = NavElement.objects.all()
-
 
 def index(request):
-    context = {'nav_elements': nav_elements}
-    return render(request, 'profession/index.html', context)
+    return render(request, 'profession/index.html')
 
 
 def demand(request):
-    context = {'nav_elements': nav_elements}
-    return render(request, 'profession/demand.html', context)
+    return render(request, 'profession/demand.html')
 
 
 def geography(request):
-    context = {'nav_elements': nav_elements}
-    return render(request, 'profession/geography.html', context)
+    return render(request, 'profession/geography.html')
 
 
 def skills(request):
-    context = {'nav_elements': nav_elements}
-    return render(request, 'profession/skills.html', context)
+    return render(request, 'profession/skills.html')
 
 
 def last_vacancies(request):
-    context = {'nav_elements': nav_elements}
-    return render(request, 'profession/last-vacancies.html', context)
+    return render(request, 'profession/last-vacancies.html')

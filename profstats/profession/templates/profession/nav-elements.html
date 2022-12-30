@@ -1,0 +1,3 @@
+{% for el in nav_elements %}
+  <li><a href="{% url el.url_name %}">{{el.label}}</a></li>
+{% endfor %}
