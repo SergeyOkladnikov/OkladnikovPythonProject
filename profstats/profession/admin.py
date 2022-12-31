@@ -8,4 +8,11 @@ class NavElementAdmin(admin.ModelAdmin):
     search_fields = ('label',)
 
 
+class FooterElementAdmin(admin.ModelAdmin):
+    list_display = ('label', 'content')
+    list_display_links = ('label', 'content')
+    search_fields = ('label',)
+
+
 admin.site.register(NavElement, NavElementAdmin)
+admin.site.register(FooterElement, FooterElementAdmin)

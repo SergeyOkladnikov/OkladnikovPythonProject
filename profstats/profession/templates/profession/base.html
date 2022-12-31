@@ -19,19 +19,14 @@
   <main>
     <nav>
         <ul>
-            {% show_nav %}
+            {% render_nav %}
         </ul>
     </nav>
     {% block content %}
     {% endblock %}
   </main>
   <footer>
-      <p>
-          Окладников Сергей Борисович
-      </p>
-      <p>
-          РИ-210940
-      </p>
+      {% render_footer %}
   </footer>
 </body>
 </html>

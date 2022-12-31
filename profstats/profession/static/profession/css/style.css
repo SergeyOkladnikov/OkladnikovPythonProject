@@ -31,6 +31,7 @@ main{
 nav{
     background-color: #F08559;
     width: 240px;
+    min-width: 240px;
     display: flex;
     align-items: start;
     font-size: 18px;
@@ -72,9 +73,16 @@ footer{
     /*display: flex;
     justify-content: space-around;*/
     min-height: 30px;
+
 }
 
 footer p{
     margin: 5px 5px;
+    font-size: 14px;
+}
+
+footer p span{
+    font-weight: 700;
+    color: #333333;
 }
 

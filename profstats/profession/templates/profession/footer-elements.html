@@ -1,0 +1,10 @@
+{% if footer_elements %}
+    {% for element in footer_elements %}
+        <p>
+            {% if element.label %}
+                <span>{{element.label}}</span>:
+            {% endif %}
+            {{element.content}}
+        </p>
+    {% endfor %}
+{% endif %}
