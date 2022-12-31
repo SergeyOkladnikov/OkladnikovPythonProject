@@ -1,0 +1,16 @@
+{% load static %}
+{% if header %}
+    {% if header.is_logo_shown %}
+        {% if header.is_logo_changed %}
+            <img src="{{header.logo.url}}" class="logo">
+        {% else %}
+            <img src="{% static 'profession/images/logo.svg' %}" class="logo">
+        {% endif %}
+    {% endif %}
+    {% if header.is_prof_name_shown %}
+        <p>Инженер-программист</p>
+    {% endif %}
+{% else %}
+        <img src="{% static 'profession/images/logo.svg' %}" class="logo">
+        <p>Инженер-программист</p>
+{% endif %}

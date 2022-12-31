@@ -14,5 +14,13 @@ class FooterElementAdmin(admin.ModelAdmin):
     search_fields = ('label',)
 
 
+class HeaderAdmin(admin.ModelAdmin):
+    list_display = ('name', 'is_logo_changed', 'is_logo_shown', 'is_prof_name_shown', 'is_chosen')
+    list_editable = ('is_logo_changed', 'is_logo_shown', 'is_prof_name_shown', 'is_chosen')
+    list_display_links = ('name',)
+    search_fields = ('name',)
+
+
 admin.site.register(NavElement, NavElementAdmin)
 admin.site.register(FooterElement, FooterElementAdmin)
+admin.site.register(Header, HeaderAdmin)

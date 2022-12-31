@@ -14,3 +14,12 @@ def render_nav():
 def render_footer():
     footer_elements = FooterElement.objects.all()
     return {"footer_elements": footer_elements}
+
+
+@register.inclusion_tag('profession/header.html')
+def render_header():
+    if Header.objects.filter(is_chosen=True):
+        header = Header.objects.filter(is_chosen=True)[0]
+    else:
+        header = None
+    return {'header': header}
