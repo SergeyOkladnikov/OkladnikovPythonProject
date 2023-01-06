@@ -31,16 +31,18 @@ main{
 nav{
     background-color: #F08559;
     width: 240px;
-    min-width: 240px;
+    min-width: 200px;
     display: flex;
     align-items: start;
+    justify-content: center;
     font-size: 18px;
 }
 
 nav ul{
+    width: 100%;
     list-style: none;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -51,6 +53,8 @@ nav ul{
 
 nav li{
     margin-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 nav li:last-child{
@@ -64,7 +68,7 @@ nav a{
 }
 
 h1{
-    margin-left: 40px;
+    margin-top: 35px;
 }
 
 footer{
@@ -84,5 +88,26 @@ footer p{
 footer p span{
     font-weight: 700;
     color: #333333;
+}
+
+.content{
+    padding: 55px;
+    padding-top: 0;
+}
+
+.main-content{
+}
+
+.main-content img{
+    display: block;
+    max-width: 100%;
+    width: 1200px;
+    height: auto;
+}
+
+.main-content p{
+    font-size: 17px;
+    max-width: 1500px;
+    min-width: 400px;
 }
 

@@ -1,5 +1,6 @@
 from django import template
 from profession.models import *
+from profession.views import profession
 
 register = template.Library()
 
@@ -22,4 +23,4 @@ def render_header():
         header = Header.objects.filter(is_chosen=True)[0]
     else:
         header = None
-    return {'header': header}
+    return {'header': header, 'prof_name': profession.name}

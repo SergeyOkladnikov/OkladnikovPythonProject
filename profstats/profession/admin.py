@@ -21,6 +21,48 @@ class HeaderAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
+class ProfessionAdmin(admin.ModelAdmin):
+    list_display = ('name', 'is_chosen')
+    list_editable = ('is_chosen',)
+    list_display_links = ('name',)
+    search_fields = ('name',)
+
+    fieldsets = (
+        ('Общая информация', {
+            'fields': ('name',
+                       'text_block_1',
+                       'image_1',
+                       'image_1_caption',
+                       'text_block_2',
+                       'image_2',
+                       'image_2_caption',
+                       'text_block_3',
+                       'image_3',
+                       'image_3_caption')
+        }),
+        ('Востребованность', {
+            'fields': ('years_stats',
+                       'years_salary_graph',
+                       'years_vac_num_graph',
+                       'years_salary_for_prof_graph',
+                       'years_vac_num_for_prof_graph',
+                       'years_salary_comparison_graph',
+                       'years_vac_num_comparison_graph')
+        }),
+        ('География', {
+            'fields': ('areas_stats',
+                       'areas_salary_graph',
+                       'areas_vac_fractions_graph')
+
+        }),
+        ('Навыки', {
+            'fields': ('skills_stats',
+                       'top_skills_total_graph')
+        })
+    )
+
+
 admin.site.register(NavElement, NavElementAdmin)
 admin.site.register(FooterElement, FooterElementAdmin)
 admin.site.register(Header, HeaderAdmin)
+admin.site.register(Profession, ProfessionAdmin)

@@ -1,5 +1,42 @@
 {% extends 'profession/base.html' %}
 
 {% block content %}
+<div class="main-content">
 <h1>Главная</h1>
+{% if text_1 %}
+<p>{{ text_1 }}</p>
+{% endif %}
+{% if image_1 %}
+    <div>
+    <img src="{{image_1.url}}">
+    {% if image_1_caption %}
+    <p class="image-caption">{{image_1_caption}}</p>
+    {% endif %}
+    </div>
+{% endif %}
+
+{% if text_2 %}
+<p>{{ text_2 }}</p>
+{% endif %}
+{% if image_2 %}
+    <div>
+    <img src="{{image_2.url}}">
+    {% if image_2_caption %}
+    <p class="image-caption">{{image_2_caption}}</p>
+    {% endif %}
+    </div>
+{% endif %}
+
+{% if text_3 %}
+<p>{{ text_3 }}</p>
+{% endif %}
+{% if image_3 %}
+    <div>
+    <img src="{{image_3.url}}">
+    {% if image_3_caption %}
+    <p class="image-caption">{{image_3_caption}}</p>
+    {% endif %}
+    </div>
+{% endif %}
+</div>
 {% endblock %}
