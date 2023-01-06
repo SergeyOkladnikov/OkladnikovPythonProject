@@ -2,4 +2,83 @@
 
 {% block content %}
 <h1>Востребованность</h1>
+<div class="demand-content">
+    <h2>Статистические графики о востребованности по годам</h2>
+    <h3 class="block-header">Графики с одной величиной</h3>
+    <div class="graphs-block">
+        <div>
+        {% if profession.years_salary_graph %}
+            <h3>Динамика уровня зарплат по годам</h3>
+            <img src="{{profession.years_salary_graph.url}}">
+        {% endif %}
+        </div>
+        <div>
+        {% if profession.years_vac_num_graph %}
+            <h3>Динамика количества вакансий по годам</h3>
+            <img src="{{profession.years_vac_num_graph.url}}">
+        {% endif %}
+        </div>
+        <div>
+        {% if profession.years_salary_for_prof_graph %}
+            <h3>Динамика уровня зарплат по годам для профессии {{profession.name}}</h3>
+            <img src="{{profession.years_salary_for_prof_graph.url}}">
+        {% endif %}
+        </div>
+        <div>
+        {% if profession.years_vac_num_for_prof_graph %}
+            <h3>Динамика количества вакансий по годам для профессии {{profession.name}}</h3>
+            <img src="{{profession.years_vac_num_for_prof_graph.url}}">
+        {% endif %}
+        </div>
+    </div>
+
+    <h3 class="block-header">Сравнительные графики</h3>
+    <div class="graphs-block">
+        <div>
+        {% if profession.years_salary_graph %}
+            <h3>Динамика уровня зарплат по годам</h3>
+            <img src="{{profession.years_salary_comparison_graph.url}}">
+        {% endif %}
+        </div>
+        <div>
+        {% if profession.years_vac_num_graph %}
+            <h3>Динамика количества вакансий по годам</h3>
+            <img src="{{profession.years_vac_num_comparison_graph.url}}">
+        {% endif %}
+        </div>
+    </div>
+
+    <h2>Таблицы</h2>
+    <div class="tables-block">
+        <table>
+            <caption>Динамика уровня зарплат по годам</caption>
+            <tr><th>Год</th><th>Средняя з/п</th></tr>
+            {% for key, value in years_salary_dynamics.items %}
+            <tr><td>{{key}}</td><td>{{value}}</td></tr>
+            {% endfor %}
+        </table>
+        <table>
+            <caption>Динамика количества вакансий по годам</caption>
+            <tr><th>Год</th><th>Кол-во вакансий</th></tr>
+            {% for key, value in years_vac_num_dynamics.items %}
+            <tr><td>{{key}}</td><td>{{value}}</td></tr>
+            {% endfor %}
+        </table>
+        <table>
+            <caption>Динамика уровня зарплат по годам для профессии {{profession.name}}</caption>
+            <tr><th>Год</th><th>Средняя з/п</th></tr>
+            {% for key, value in years_salary_dynamics_for_prof.items %}
+            <tr><td>{{key}}</td><td>{{value}}</td></tr>
+            {% endfor %}
+        </table>
+        <table>
+            <caption>Динамика количества вакансий по годам для профессии {{profession.name}}</caption>
+            <tr><th>Год</th><th>Кол-во вакансий</th></tr>
+            {% for key, value in years_vac_num_dynamics_for_prof.items %}
+            <tr><td>{{key}}</td><td>{{value}}</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
 {% endblock %}

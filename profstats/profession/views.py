@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render, HttpResponse
 from .models import *
 
@@ -23,7 +25,21 @@ def index(request):
 
 
 def demand(request):
-    return render(request, 'profession/demand.html')
+    with open(profession.years_stats.url[1:], 'r') as file:
+        year_stats = json.load(file)
+    years_salary_dynamics = dict(sorted(year_stats['years_salary_dynamics'].items(), key=lambda x: x[0]))
+    years_vac_num_dynamics = dict(sorted(year_stats['years_vac_num_dynamics'].items(), key=lambda x: x[0]))
+    years_salary_dynamics_for_prof = dict(sorted(year_stats['years_salary_dynamics_for_prof'].items(), key=lambda x: x[0]))
+    years_vac_num_dynamics_for_prof = dict(sorted(year_stats['years_vac_num_dynamics_for_prof'].items(), key=lambda x: x[0]))
+
+    context = {
+        'profession': profession,
+        'years_salary_dynamics': years_salary_dynamics,
+        'years_vac_num_dynamics': years_vac_num_dynamics,
+        'years_salary_dynamics_for_prof': years_salary_dynamics_for_prof,
+        'years_vac_num_dynamics_for_prof': years_vac_num_dynamics_for_prof,
+    }
+    return render(request, 'profession/demand.html', context=context)
 
 
 def geography(request):
