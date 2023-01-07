@@ -45,28 +45,30 @@ make_inverted_hist(top_skills_total, 'Топ-10 навыков по кол-ву 
 for key, value in top_skills_of_years.items():
     make_inverted_hist(value, f'Топ-10 навыков по кол-ву упоминаний за {key} год', f'top_skills_{key}')
 
+ensure_ascii = True
+
 with open('stats/year_salary_dynamics.json', 'w') as file:
-    json.dump(year_salary_dynamics, file, ensure_ascii=False, indent=4)
+    json.dump(year_salary_dynamics, file, ensure_ascii=ensure_ascii, indent=4)
 
 with open('stats/num_of_vacancies_per_year.json', 'w') as file:
-    json.dump(num_of_vacancies_per_year, file, ensure_ascii=False, indent=4)
+    json.dump(num_of_vacancies_per_year, file, ensure_ascii=ensure_ascii, indent=4)
 
 with open('stats/year_salary_dynamics_for_prof.json', 'w') as file:
-    json.dump(year_salary_dynamics_for_prof, file, ensure_ascii=False, indent=4)
+    json.dump(year_salary_dynamics_for_prof, file, ensure_ascii=ensure_ascii, indent=4)
 
 with open('stats/num_of_vacancies_per_year_for_prof.json', 'w') as file:
-    json.dump(num_of_vacancies_per_year_for_prof, file, ensure_ascii=False, indent=4)
+    json.dump(num_of_vacancies_per_year_for_prof, file, ensure_ascii=ensure_ascii, indent=4)
 
 with open('stats/salary_levels_of_areas.json', 'w') as file:
-    json.dump(salary_levels_of_areas, file, ensure_ascii=False, indent=4)
+    json.dump(salary_levels_of_areas, file, ensure_ascii=ensure_ascii, indent=4)
 
 for key in vacancy_fractions_of_areas.keys():
     vacancy_fractions_of_areas[key] = "{:.2%}".format(float(vacancy_fractions_of_areas[key]))
 with open('stats/vacancy_fractions_of_areas.json', 'w') as file:
-    json.dump(vacancy_fractions_of_areas, file, ensure_ascii=False, indent=4)
+    json.dump(vacancy_fractions_of_areas, file, ensure_ascii=ensure_ascii, indent=4)
 
 with open('stats/top_skills_total.json', 'w') as file:
-    json.dump(top_skills_total, file, ensure_ascii=False, indent=4)
+    json.dump(top_skills_total, file, ensure_ascii=ensure_ascii, indent=4)
 
 with open('stats/top_skills_of_years.json', 'w') as file:
-    json.dump(top_skills_of_years, file, ensure_ascii=False, indent=4)
+    json.dump(top_skills_of_years, file, ensure_ascii=ensure_ascii, indent=4)

@@ -42,6 +42,7 @@ def get_first_dict_elements(dictionary, n):
 def get_mean_salary_in_rur(x):
     return int((float(x['salary_to']) + float(x['salary_from'])) / 2 * currency_to_rub[x['salary_currency']])
 
+
 def get_years_salary_dynamics(data):
     data_full_salary = data.dropna(subset = ['salary_to', 'salary_from'])
     data_full_salary['rur_mean_salary'] = data_full_salary.apply(get_mean_salary_in_rur, axis=1)
