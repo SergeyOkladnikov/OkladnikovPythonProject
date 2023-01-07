@@ -116,15 +116,15 @@ footer p span{
     min-width: 400px;
 }
 
-.demand-content{
+.graphs-and-tables{
     max-width: 1420px;
 }
 
-.demand-content img{
+.graphs-and-tables img{
     width: 700px;
 }
 
-.demand-content div h3{
+.graphs-and-tables div h3{
     font-size: 15px;
     text-align: center;
 }

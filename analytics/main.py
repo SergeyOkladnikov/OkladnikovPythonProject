@@ -19,12 +19,12 @@ num_of_vacancies_per_year_for_prof = get_years_vac_num_dynamics_for_prof(df_year
 vacancy_fractions_of_areas = get_vacancy_fractions_of_areas(df_areas, 0.01)
 salary_levels_of_areas = get_salaries_of_areas(df_areas, vacancy_fractions_of_areas)
 top_skills_total = get_top_skills_total(df_years)
-top_skills_of_years = get_top_skills_of_years(df_years)
+top_skills_of_years = get_top_skills_of_years(df_years, prof)
 
 make_hist(year_salary_dynamics, 'Динамика уровня зарплат по годам', 'years_salary')
 make_hist(num_of_vacancies_per_year, 'Динамика количества вакансий по годам', 'years_vac_num')
-make_hist(year_salary_dynamics_for_prof, 'Динамика уровня зарплат по годам для выбранной профессии', 'years_salary_for_prof')
-make_hist(num_of_vacancies_per_year_for_prof, 'Динамика количества вакансий по годам для выбранной профессии', 'years_vac_num_for_prof')
+make_hist(year_salary_dynamics_for_prof, f'Динамика уровня зарплат по годам\n для профессии {prof}', 'years_salary_for_prof')
+make_hist(num_of_vacancies_per_year_for_prof, f'Динамика количества вакансий по годам\n для профессии {prof}', 'years_vac_num_for_prof')
 make_comparison_hist(year_salary_dynamics,
                      year_salary_dynamics_for_prof,
                      'Инженер-программист',
@@ -43,7 +43,7 @@ make_pie(vacancy_fractions_of_areas, 'Доля вакансий по город�
 
 make_inverted_hist(top_skills_total, 'Топ-10 навыков по кол-ву упоминаний за всё время', 'top_skills_total')
 for key, value in top_skills_of_years.items():
-    make_inverted_hist(value, f'Топ-10 навыков по кол-ву упоминаний за {key} год', f'top_skills_{key}')
+    make_inverted_hist(value, f'Топ-10 навыков по кол-ву упоминаний за {key} год\n для профессии {prof}', f'top_skills_{key}')
 
 ensure_ascii = True
 

@@ -78,11 +78,11 @@ def get_vacancy_fractions_of_areas(data, vac_frac_threshold):
 def get_top_skills_total(data):
     ks = data.dropna(subset=['key_skills'])
     ks.key_skills = ks.key_skills.apply(lambda x: x.split('\n'))
-    return pd.Series(np.concatenate([x for x in ks.key_skills])).value_counts().to_dict()
+    return pd.Series(np.concatenate([x for x in ks.key_skills])).value_counts().head(50).to_dict()
 
 
-def get_top_skills_of_years(data):
-    ks = data.dropna(subset=['key_skills'])
+def get_top_skills_of_years(data, profession):
+    ks = data.loc[data['name'].apply(lambda x: profession in x)].dropna(subset=['key_skills'])
     ks.key_skills = ks.key_skills.apply(lambda x: x.split('\n'))
     skills_of_years = ks.groupby('year')['key_skills'].apply(
         lambda x: pd.Series(np.concatenate([item for item in x])).value_counts().head(10))

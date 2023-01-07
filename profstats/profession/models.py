@@ -72,7 +72,7 @@ class Page(models.Model):
 
 class NonProfConnectedGraph(models.Model):
     name = models.CharField(max_length=150, verbose_name='Название')
-    label = models.CharField(max_length=150, verbose_name='Подпись')
+    label = models.CharField(max_length=150, verbose_name='Подпись', blank=True)
     graph = models.FileField(upload_to='graphs/demand', verbose_name='График')
     page = models.ForeignKey('Page', on_delete=models.PROTECT, verbose_name='Страница')
     is_shown = models.BooleanField(default=True, verbose_name='Отображать')
@@ -87,7 +87,7 @@ class NonProfConnectedGraph(models.Model):
 
 class ProfConnectedGraph(models.Model):
     name = models.CharField(max_length=150, verbose_name='Название')
-    label = models.CharField(max_length=150, verbose_name='Подпись')
+    label = models.CharField(max_length=150, verbose_name='Подпись', blank=True)
     graph = models.FileField(upload_to='graphs/demand', verbose_name='График')
     profession = models.ForeignKey('Profession', on_delete=models.PROTECT, verbose_name='Профессия')
     page = models.ForeignKey('Page', on_delete=models.PROTECT, verbose_name='Страница')
@@ -103,7 +103,7 @@ class ProfConnectedGraph(models.Model):
 
 class ComparisonGraph(models.Model):
     name = models.CharField(max_length=150, verbose_name='Название')
-    label = models.CharField(max_length=150, verbose_name='Подпись')
+    label = models.CharField(max_length=150, verbose_name='Подпись', blank=True)
     graph = models.FileField(upload_to='graphs/demand', verbose_name='График')
     page = models.ForeignKey('Page', on_delete=models.PROTECT, verbose_name='Страница')
     profession = models.ForeignKey('Profession', on_delete=models.PROTECT, verbose_name='Профессия')

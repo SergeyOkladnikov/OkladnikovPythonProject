@@ -38,9 +38,10 @@ def demand(request):
 
 
 def geography(request):
+    page_id = 3
     prof_name = profession.name
-    graphs = NonProfConnectedGraph.objects.filter(page_id='3')
-    table_data = NonProfConnectedTableData.objects.filter(page_id='3')
+    graphs = NonProfConnectedGraph.objects.filter(page_id=page_id)
+    table_data = NonProfConnectedTableData.objects.filter(page_id=page_id)
     tables = prepare_table_data(table_data)
     context = {
         'prof_name': prof_name,
@@ -51,7 +52,23 @@ def geography(request):
 
 
 def skills(request):
-    return render(request, 'profession/skills.html')
+    page_id = 4
+    non_prof_graphs = NonProfConnectedGraph.objects.filter(page_id=page_id)
+    prof_graphs = profession.profconnectedgraph_set.filter(page_id=page_id)
+    non_prof_table_data = NonProfConnectedTableData.objects.filter(page_id=page_id)
+    prof_table_data = ProfConnectedTableData.objects.filter(page_id=page_id)
+
+    non_prof_tables = prepare_table_data(non_prof_table_data)
+    prof_tables = prepare_table_data(prof_table_data)
+    prof_name = profession.name
+    context = {
+        'non_prof_graphs': non_prof_graphs,
+        'prof_graphs': prof_graphs,
+        'prof_name': prof_name,
+        'non_prof_tables': non_prof_tables,
+        'prof_tables': prof_tables
+    }
+    return render(request, 'profession/skills.html', context=context)
 
 
 def last_vacancies(request):
