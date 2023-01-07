@@ -2,27 +2,24 @@ import json
 from stats import *
 
 csv_years_path = 'input_data/vacancies_with_skills.csv'
-df_years = pd.read_csv(csv_years_path, header=0, dtype={'name': str, 'key_skills': str, 'salary_from': float, 'salary_to': float, 'salary_currency': str, 'published_at': str})
-
 csv_areas_path = 'input_data/vacancies_by_years.csv'
+
+prof = 'Инженер-программист'
+
+df_years = pd.read_csv(csv_years_path, header=0, dtype={'name': str, 'key_skills': str, 'salary_from': float, 'salary_to': float, 'salary_currency': str, 'published_at': str})
 df_areas = pd.read_csv(csv_areas_path, header=0, dtype={'name': str, 'key_skills': str, 'salary_from': float, 'salary_to': float, 'salary_currency': str, 'published_at': str})
 
-years_stats = get_years_stats(df_years, 'Инженер-программист')
-areas_stats = get_areas_stats(df_areas, 0.01)
-skills_stats = get_skills_stats(df_years, 10)
+df_years.published_at = pd.to_datetime(df_years.published_at, utc=True)
+df_years['year'] = df_years.published_at.dt.to_period('Y').apply(lambda x: int(str(x)))
 
-
-year_salary_dynamics = years_stats['years_salary_dynamics']
-num_of_vacancies_per_year = years_stats['years_vac_num_dynamics']
-year_salary_dynamics_for_prof = years_stats['years_salary_dynamics_for_prof']
-num_of_vacancies_per_year_for_prof = years_stats['years_vac_num_dynamics_for_prof']
-
-salary_levels_of_areas = areas_stats['salaries_of_areas']
-vacancy_fractions_of_areas = areas_stats['vacancy_fractions_of_areas']
-
-top_skills_total = skills_stats['top_skills_total']
-top_skills_of_years = skills_stats['top_skills_of_years']
-
+year_salary_dynamics = get_years_salary_dynamics(df_years)
+num_of_vacancies_per_year = get_years_vac_num_dynamics(df_years)
+year_salary_dynamics_for_prof = get_years_salary_dynamics_for_prof(df_years, profession=prof)
+num_of_vacancies_per_year_for_prof = get_years_vac_num_dynamics_for_prof(df_years, profession=prof)
+vacancy_fractions_of_areas = get_vacancy_fractions_of_areas(df_areas, 0.01)
+salary_levels_of_areas = get_salaries_of_areas(df_areas, vacancy_fractions_of_areas)
+top_skills_total = get_top_skills_total(df_years)
+top_skills_of_years = get_top_skills_of_years(df_years)
 
 make_hist(year_salary_dynamics, 'Динамика уровня зарплат по годам', 'years_salary')
 make_hist(num_of_vacancies_per_year, 'Динамика количества вакансий по годам', 'years_vac_num')
@@ -45,19 +42,31 @@ make_inverted_hist(salary_levels_of_areas, 'Уровень зарплат по �
 make_pie(vacancy_fractions_of_areas, 'Доля вакансий по городам', 'areas_vac_fractions')
 
 make_inverted_hist(top_skills_total, 'Топ-10 навыков по кол-ву упоминаний за всё время', 'top_skills_total')
-
 for key, value in top_skills_of_years.items():
     make_inverted_hist(value, f'Топ-10 навыков по кол-ву упоминаний за {key} год', f'top_skills_{key}')
 
-with open('json_files/years_stats.json', 'w') as file:
-    json.dump(years_stats, file, ensure_ascii=False, indent=4)
+with open('stats/year_salary_dynamics.json', 'w') as file:
+    json.dump(year_salary_dynamics, file, ensure_ascii=False, indent=4)
 
-for key in areas_stats['vacancy_fractions_of_areas'].keys():
-    areas_stats['vacancy_fractions_of_areas'][key] = "{:.2%}".format(
-        float(areas_stats['vacancy_fractions_of_areas'][key]))
+with open('stats/num_of_vacancies_per_year.json', 'w') as file:
+    json.dump(num_of_vacancies_per_year, file, ensure_ascii=False, indent=4)
 
-with open('json_files/areas_stats.json', 'w') as file:
-    json.dump(areas_stats, file, ensure_ascii=False, indent=4)
+with open('stats/year_salary_dynamics_for_prof.json', 'w') as file:
+    json.dump(year_salary_dynamics_for_prof, file, ensure_ascii=False, indent=4)
 
-with open('json_files/skills_stats.json', 'w') as file:
-    json.dump(skills_stats, file, ensure_ascii=False, indent=4)
+with open('stats/num_of_vacancies_per_year_for_prof.json', 'w') as file:
+    json.dump(num_of_vacancies_per_year_for_prof, file, ensure_ascii=False, indent=4)
+
+with open('stats/salary_levels_of_areas.json', 'w') as file:
+    json.dump(salary_levels_of_areas, file, ensure_ascii=False, indent=4)
+
+for key in vacancy_fractions_of_areas.keys():
+    vacancy_fractions_of_areas[key] = "{:.2%}".format(float(vacancy_fractions_of_areas[key]))
+with open('stats/vacancy_fractions_of_areas.json', 'w') as file:
+    json.dump(vacancy_fractions_of_areas, file, ensure_ascii=False, indent=4)
+
+with open('stats/top_skills_total.json', 'w') as file:
+    json.dump(top_skills_total, file, ensure_ascii=False, indent=4)
+
+with open('stats/top_skills_of_years.json', 'w') as file:
+    json.dump(top_skills_of_years, file, ensure_ascii=False, indent=4)
