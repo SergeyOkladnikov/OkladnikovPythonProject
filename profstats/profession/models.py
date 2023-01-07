@@ -39,3 +39,32 @@ class Header(models.Model):
     class Meta:
         verbose_name = 'Вариант шапки'
         verbose_name_plural = 'Варианты шапки'
+
+
+class Profession(models.Model):
+    name = models.CharField(max_length=150, verbose_name='Название профессии')
+    text_block_1 = models.TextField(verbose_name='Блок текста 1', blank=True)
+    image_1 = models.ImageField(upload_to='photos/', verbose_name='Изображение 1', blank=True)
+    image_1_caption = models.CharField(max_length=100, verbose_name='Подпись изображения 1', blank=True)
+    text_block_2 = models.TextField(verbose_name='Блок текста 2', blank=True)
+    image_2 = models.ImageField(upload_to='photos/', verbose_name='Изображение 2', blank=True)
+    image_2_caption = models.CharField(max_length=100, verbose_name='Подпись изображения 2', blank=True)
+    text_block_3 = models.TextField(verbose_name='Блок текста 3', blank=True)
+    image_3 = models.ImageField(upload_to='photos/', verbose_name='Изображение 3', blank=True)
+    image_3_caption = models.CharField(max_length=100, verbose_name='Подпись изображения 3', blank=True)
+    is_chosen = models.BooleanField(verbose_name='Выбрана', default=False)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Профессия'
+        verbose_name_plural = 'Профессии'
+
+
+class DemandOneVarGraph(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Название')
+    label = models.CharField(max_length=150, verbose_name='Подпись')
+    graph = models.FileField(upload_to='graphs/demand', verbose_name='График')
+    is_shown = models.BooleanField(default=True, verbose_name='Отображать')
+    profession = models.ForeignKey('Profession', on_delete=models.PROTECT, verbose_name='Профессия')

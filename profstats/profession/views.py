@@ -1,9 +1,17 @@
 from django.shortcuts import render, HttpResponse
 from .models import *
 
+if Profession.objects.filter(is_chosen=True):
+    profession = Profession.objects.filter(is_chosen=True)[0]
+else:
+    profession = None
+
 
 def index(request):
-    return render(request, 'profession/index.html')
+    context = {
+        'profession': profession
+    }
+    return render(request, 'profession/index.html', context=context)
 
 
 def demand(request):

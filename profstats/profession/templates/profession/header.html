@@ -8,9 +8,17 @@
         {% endif %}
     {% endif %}
     {% if header.is_prof_name_shown %}
-        <p>Инженер-программист</p>
+        <p>
+        {% if prof_name %}
+            {{prof_name}}
+        {% endif %}
+        </p>
     {% endif %}
 {% else %}
         <img src="{% static 'profession/images/logo.svg' %}" class="logo">
-        <p>Инженер-программист</p>
+        <p>
+        {% if prof_name %}
+            {{prof_name}}
+        {% endif %}
+        </p>
 {% endif %}

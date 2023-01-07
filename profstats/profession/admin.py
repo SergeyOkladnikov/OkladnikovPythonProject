@@ -21,6 +21,22 @@ class HeaderAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
+class ProfessionAdmin(admin.ModelAdmin):
+    list_display = ('name', 'is_chosen')
+    list_editable = ('is_chosen',)
+    list_display_links = ('name',)
+    search_fields = ('name',)
+
+
+class DemandOneVarGraphAdmin(admin.ModelAdmin):
+    list_display = ('name', 'is_shown')
+    list_editable = ('is_shown',)
+    list_display_links = ('name',)
+    search_fields = ('name',)
+
+
 admin.site.register(NavElement, NavElementAdmin)
 admin.site.register(FooterElement, FooterElementAdmin)
 admin.site.register(Header, HeaderAdmin)
+admin.site.register(Profession, ProfessionAdmin)
+admin.site.register(DemandOneVarGraph, DemandOneVarGraphAdmin)

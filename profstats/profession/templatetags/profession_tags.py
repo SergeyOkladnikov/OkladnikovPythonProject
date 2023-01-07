@@ -18,8 +18,9 @@ def render_footer():
 
 @register.inclusion_tag('profession/header.html')
 def render_header():
+    from profession.views import profession
     if Header.objects.filter(is_chosen=True):
         header = Header.objects.filter(is_chosen=True)[0]
     else:
         header = None
-    return {'header': header}
+    return {'header': header, 'prof_name': profession.name if profession else None}
