@@ -1,5 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from .models import *
+import json
+from profession.utils import *
 
 if Profession.objects.filter(is_chosen=True):
     profession = Profession.objects.filter(is_chosen=True)[0]
@@ -15,15 +17,22 @@ def index(request):
 
 
 def demand(request):
-    non_prof_graphs = NonProfConnectedDemandGraph.objects.all()
-    prof_graphs = profession.profconnecteddemandgraph_set.all()
-    comparison_graphs = profession.comparisondemandgraph_set.all()
+    non_prof_graphs = NonProfConnectedGraph.objects.filter(page_id='2')
+    prof_graphs = profession.profconnectedgraph_set.filter(page_id='2')
+    comparison_graphs = profession.comparisongraph_set.filter(page_id='2')
+    non_prof_table_data = NonProfConnectedTableData.objects.filter(page_id='2')
+    prof_table_data = ProfConnectedTableData.objects.filter(page_id='2')
+
+    non_prof_tables = prepare_table_data(non_prof_table_data)
+    prof_tables = prepare_table_data(prof_table_data)
     prof_name = profession.name
     context = {
         'non_prof_graphs': non_prof_graphs,
         'prof_graphs': prof_graphs,
         'comparison_graphs': comparison_graphs,
-        'prof_name': prof_name
+        'prof_name': prof_name,
+        'non_prof_tables': non_prof_tables,
+        'prof_tables': prof_tables
     }
     return render(request, 'profession/demand.html', context=context)
 

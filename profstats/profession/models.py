@@ -62,47 +62,91 @@ class Profession(models.Model):
         verbose_name_plural = 'Профессии'
 
 
-class NonProfConnectedDemandGraph(models.Model):
+class Page(models.Model):
+    name = models.CharField(max_length=70, verbose_name='Название страницы')
+    label = models.CharField(max_length=70, verbose_name='Отображаемое имя')
+
+    def __str__(self):
+        return self.label
+
+
+class NonProfConnectedGraph(models.Model):
     name = models.CharField(max_length=150, verbose_name='Название')
     label = models.CharField(max_length=150, verbose_name='Подпись')
     graph = models.FileField(upload_to='graphs/demand', verbose_name='График')
+    page = models.ForeignKey('Page', on_delete=models.PROTECT, verbose_name='Страница')
     is_shown = models.BooleanField(default=True, verbose_name='Отображать')
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = 'График раздела "Востребованность", не связанный с профессией'
-        verbose_name_plural = 'Графики раздела "Востребованность", не связанные с профессией'
+        verbose_name = 'График, не связанный с профессией'
+        verbose_name_plural = 'Графики, не связанные с профессией'
 
 
-class ProfConnectedDemandGraph(models.Model):
+class ProfConnectedGraph(models.Model):
     name = models.CharField(max_length=150, verbose_name='Название')
     label = models.CharField(max_length=150, verbose_name='Подпись')
     graph = models.FileField(upload_to='graphs/demand', verbose_name='График')
-    is_shown = models.BooleanField(default=True, verbose_name='Отображать')
     profession = models.ForeignKey('Profession', on_delete=models.PROTECT, verbose_name='Профессия')
+    page = models.ForeignKey('Page', on_delete=models.PROTECT, verbose_name='Страница')
+    is_shown = models.BooleanField(default=True, verbose_name='Отображать')
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = 'График раздела "Востребованность" с одной переменной, связанный с профессией'
-        verbose_name_plural = 'Графики раздела "Востребованность" с одной переменной, связанные с профессией'
+        verbose_name = 'График, связанный с профессией'
+        verbose_name_plural = 'Графики, связанные с профессией'
 
 
-class ComparisonDemandGraph(models.Model):
+class ComparisonGraph(models.Model):
     name = models.CharField(max_length=150, verbose_name='Название')
     label = models.CharField(max_length=150, verbose_name='Подпись')
     graph = models.FileField(upload_to='graphs/demand', verbose_name='График')
-    is_shown = models.BooleanField(default=True, verbose_name='Отображать')
+    page = models.ForeignKey('Page', on_delete=models.PROTECT, verbose_name='Страница')
     profession = models.ForeignKey('Profession', on_delete=models.PROTECT, verbose_name='Профессия')
+    is_shown = models.BooleanField(default=True, verbose_name='Отображать')
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = 'График раздела "Востребованность", сравнительный'
-        verbose_name_plural = 'Графики раздела "Востребованность", сравнительные'
+        verbose_name = 'График  сравнительный'
+        verbose_name_plural = 'Графики сравнительные'
 
 
+class NonProfConnectedTableData(models.Model):
+    label = models.CharField(max_length=250, verbose_name='Название')
+    keys_label = models.CharField(max_length=50, verbose_name='Название левого столбца')
+    values_label = models.CharField(max_length=50, verbose_name='Название правого столбца')
+    data = models.FileField(upload_to='stat_data/', verbose_name='Данные')
+    max_rows = models.IntegerField(verbose_name='Максимальное кол-во строк', default=15)
+    page = models.ForeignKey('Page', on_delete=models.PROTECT, verbose_name='Страница')
+    is_shown = models.BooleanField(default=True, verbose_name='Отображать')
+
+    def __str__(self):
+        return self.label
+
+    class Meta:
+        verbose_name = 'Таблица, не связанная с профессией'
+        verbose_name_plural = 'Таблицы, не связанные с профессией'
+
+
+class ProfConnectedTableData(models.Model):
+    label = models.CharField(max_length=250, verbose_name='Название')
+    keys_label = models.CharField(max_length=50, verbose_name='Название левого столбца')
+    values_label = models.CharField(max_length=50, verbose_name='Название правого столбца')
+    data = models.FileField(upload_to='stat_data/', verbose_name='Данные')
+    max_rows = models.IntegerField(verbose_name='Максимальное кол-во строк', default=15)
+    page = models.ForeignKey('Page', on_delete=models.PROTECT, verbose_name='Страница')
+    profession = models.ForeignKey('Profession', on_delete=models.PROTECT, verbose_name='Профессия')
+    is_shown = models.BooleanField(default=True, verbose_name='Отображать')
+
+    def __str__(self):
+        return self.label
+
+    class Meta:
+        verbose_name = 'Таблица, связанная с профессией'
+        verbose_name_plural = 'Таблицы, связанные с профессией'

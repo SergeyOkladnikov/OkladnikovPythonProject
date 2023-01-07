@@ -28,31 +28,54 @@ class ProfessionAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
-class NonProfConnectedDemandGraphAdmin(admin.ModelAdmin):
+class NonProfConnectedGraphAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_shown')
     list_editable = ('is_shown',)
     list_display_links = ('name',)
     search_fields = ('name',)
 
 
-class ProfConnectedDemandGraphAdmin(admin.ModelAdmin):
+class ProfConnectedGraphAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_shown', 'profession')
     list_editable = ('is_shown',)
     list_display_links = ('name',)
     search_fields = ('name',)
 
 
-class ComparisonDemandGraphAdmin(admin.ModelAdmin):
+class ComparisonGraphAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_shown', 'profession')
     list_editable = ('is_shown',)
     list_display_links = ('name',)
     search_fields = ('name',)
+
+
+class PageAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    list_display_links = ('name',)
+    search_fields = ('name',)
+
+
+class NonProfConnectedTableDataAdmin(admin.ModelAdmin):
+    list_display = ('label', 'is_shown')
+    list_editable = ('is_shown',)
+    list_display_links = ('label',)
+    search_fields = ('label',)
+
+
+class ProfConnectedTableDataAdmin(admin.ModelAdmin):
+    list_display = ('label', 'is_shown')
+    list_editable = ('is_shown',)
+    list_display_links = ('label',)
+    search_fields = ('label',)
 
 
 admin.site.register(NavElement, NavElementAdmin)
 admin.site.register(FooterElement, FooterElementAdmin)
 admin.site.register(Header, HeaderAdmin)
 admin.site.register(Profession, ProfessionAdmin)
-admin.site.register(NonProfConnectedDemandGraph, NonProfConnectedDemandGraphAdmin)
-admin.site.register(ProfConnectedDemandGraph, ProfConnectedDemandGraphAdmin)
-admin.site.register(ComparisonDemandGraph, ComparisonDemandGraphAdmin)
+admin.site.register(NonProfConnectedGraph, NonProfConnectedGraphAdmin)
+admin.site.register(ProfConnectedGraph, ProfConnectedGraphAdmin)
+admin.site.register(ComparisonGraph, ComparisonGraphAdmin)
+admin.site.register(Page, PageAdmin)
+admin.site.register(NonProfConnectedTableData, NonProfConnectedTableDataAdmin)
+admin.site.register(ProfConnectedTableData, ProfConnectedTableDataAdmin)
