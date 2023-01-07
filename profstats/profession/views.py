@@ -15,7 +15,17 @@ def index(request):
 
 
 def demand(request):
-    return render(request, 'profession/demand.html')
+    non_prof_graphs = NonProfConnectedDemandGraph.objects.all()
+    prof_graphs = profession.profconnecteddemandgraph_set.all()
+    comparison_graphs = profession.comparisondemandgraph_set.all()
+    prof_name = profession.name
+    context = {
+        'non_prof_graphs': non_prof_graphs,
+        'prof_graphs': prof_graphs,
+        'comparison_graphs': comparison_graphs,
+        'prof_name': prof_name
+    }
+    return render(request, 'profession/demand.html', context=context)
 
 
 def geography(request):

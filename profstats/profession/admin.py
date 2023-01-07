@@ -28,8 +28,22 @@ class ProfessionAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
-class DemandOneVarGraphAdmin(admin.ModelAdmin):
+class NonProfConnectedDemandGraphAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_shown')
+    list_editable = ('is_shown',)
+    list_display_links = ('name',)
+    search_fields = ('name',)
+
+
+class ProfConnectedDemandGraphAdmin(admin.ModelAdmin):
+    list_display = ('name', 'is_shown', 'profession')
+    list_editable = ('is_shown',)
+    list_display_links = ('name',)
+    search_fields = ('name',)
+
+
+class ComparisonDemandGraphAdmin(admin.ModelAdmin):
+    list_display = ('name', 'is_shown', 'profession')
     list_editable = ('is_shown',)
     list_display_links = ('name',)
     search_fields = ('name',)
@@ -39,4 +53,6 @@ admin.site.register(NavElement, NavElementAdmin)
 admin.site.register(FooterElement, FooterElementAdmin)
 admin.site.register(Header, HeaderAdmin)
 admin.site.register(Profession, ProfessionAdmin)
-admin.site.register(DemandOneVarGraph, DemandOneVarGraphAdmin)
+admin.site.register(NonProfConnectedDemandGraph, NonProfConnectedDemandGraphAdmin)
+admin.site.register(ProfConnectedDemandGraph, ProfConnectedDemandGraphAdmin)
+admin.site.register(ComparisonDemandGraph, ComparisonDemandGraphAdmin)

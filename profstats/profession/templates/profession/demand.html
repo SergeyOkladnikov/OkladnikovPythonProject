@@ -2,4 +2,43 @@
 
 {% block content %}
 <h1>Востребованность</h1>
+<div class="demand-content">
+    <h2>Статистические графики о востребованности по годам</h2>
+    <h3 class="block-header">Графики с одной величиной</h3>
+    <div class="graphs-block">
+        {% for item in non_prof_graphs %}
+        {% if item.is_shown %}
+        <div>
+            {% if item.label %}
+            <h3>{{item.label}}</h3>
+            {% endif %}
+            <img src="{{item.graph.url}}">
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        {% for item in prof_graphs %}
+        {% if item.is_shown %}
+        <div>
+            {% if item.label %}
+            <h3>{{item.label}} для профессии {{prof_name}}</h3>
+            {% endif %}
+            <img src="{{item.graph.url}}">
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <h3 class="block-header">Сравнительные графики</h3>
+    <div class="graphs-block">
+        {% for item in comparison_graphs %}
+        {% if item.is_shown %}
+        <div>
+            <h3>{{item.label}}</h3>
+            <img src="{{item.graph.url}}">
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

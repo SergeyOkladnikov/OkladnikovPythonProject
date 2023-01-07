@@ -62,9 +62,47 @@ class Profession(models.Model):
         verbose_name_plural = 'Профессии'
 
 
-class DemandOneVarGraph(models.Model):
-    name = models.CharField(max_length=50, verbose_name='Название')
+class NonProfConnectedDemandGraph(models.Model):
+    name = models.CharField(max_length=150, verbose_name='Название')
+    label = models.CharField(max_length=150, verbose_name='Подпись')
+    graph = models.FileField(upload_to='graphs/demand', verbose_name='График')
+    is_shown = models.BooleanField(default=True, verbose_name='Отображать')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'График раздела "Востребованность", не связанный с профессией'
+        verbose_name_plural = 'Графики раздела "Востребованность", не связанные с профессией'
+
+
+class ProfConnectedDemandGraph(models.Model):
+    name = models.CharField(max_length=150, verbose_name='Название')
     label = models.CharField(max_length=150, verbose_name='Подпись')
     graph = models.FileField(upload_to='graphs/demand', verbose_name='График')
     is_shown = models.BooleanField(default=True, verbose_name='Отображать')
     profession = models.ForeignKey('Profession', on_delete=models.PROTECT, verbose_name='Профессия')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'График раздела "Востребованность" с одной переменной, связанный с профессией'
+        verbose_name_plural = 'Графики раздела "Востребованность" с одной переменной, связанные с профессией'
+
+
+class ComparisonDemandGraph(models.Model):
+    name = models.CharField(max_length=150, verbose_name='Название')
+    label = models.CharField(max_length=150, verbose_name='Подпись')
+    graph = models.FileField(upload_to='graphs/demand', verbose_name='График')
+    is_shown = models.BooleanField(default=True, verbose_name='Отображать')
+    profession = models.ForeignKey('Profession', on_delete=models.PROTECT, verbose_name='Профессия')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'График раздела "Востребованность", сравнительный'
+        verbose_name_plural = 'Графики раздела "Востребованность", сравнительные'
+
+
