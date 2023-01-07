@@ -17,6 +17,11 @@ header{
     display: block;
 }
 
+h2{
+    margin-top: 50px;
+    margin-bottom 30px;
+}
+
 header p{
     font-size: 18px;
     font-weight: 700;

@@ -38,7 +38,16 @@ def demand(request):
 
 
 def geography(request):
-    return render(request, 'profession/geography.html')
+    prof_name = profession.name
+    graphs = NonProfConnectedGraph.objects.filter(page_id='3')
+    table_data = NonProfConnectedTableData.objects.filter(page_id='3')
+    tables = prepare_table_data(table_data)
+    context = {
+        'prof_name': prof_name,
+        'graphs': graphs,
+        'tables': tables
+    }
+    return render(request, 'profession/geography.html', context=context)
 
 
 def skills(request):

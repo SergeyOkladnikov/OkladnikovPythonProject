@@ -2,4 +2,35 @@
 
 {% block content %}
 <h1>География</h1>
+
+<div class="demand-content">
+    <h2>Статистические графики по регионам</h2>
+    <div class="graphs-block">
+        {% for item in graphs %}
+        {% if item.is_shown %}
+        <div>
+            {% if item.label %}
+            <h3>{{item.label}}</h3>
+            {% endif %}
+            <img src="{{item.graph.url}}">
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <h2>Таблицы</h2>
+    <div class="tables-block">
+        {% for key, value in tables.items %}
+        {% if key.is_shown %}
+        <table>
+            <caption>{{key.label}}</caption>
+            <tr><th>{{key.keys_label}}</th><th>{{key.values_label}}</th></tr>
+            {% for key, value in value.items %}
+            <tr><td>{{key}}</td><td>{{value}}</td></tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
