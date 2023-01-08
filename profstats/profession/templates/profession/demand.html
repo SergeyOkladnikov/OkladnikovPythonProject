@@ -17,6 +17,7 @@
         {% endif %}
         {% endfor %}
 
+    {% if prof_graphs %}
         {% for item in prof_graphs %}
         {% if item.is_shown %}
         <div>
@@ -27,8 +28,10 @@
         </div>
         {% endif %}
         {% endfor %}
+    {% endif %}
     </div>
 
+    {% if comparison_graphs %}
     <h3 class="block-header">Сравнительные графики</h3>
     <div class="graphs-block">
         {% for item in comparison_graphs %}
@@ -40,6 +43,7 @@
         {% endif %}
         {% endfor %}
     </div>
+    {% endif %}
     <h2>Таблицы</h2>
     <div class="tables-block">
         {% for key, value in non_prof_tables.items %}

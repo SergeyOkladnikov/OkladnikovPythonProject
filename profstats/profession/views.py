@@ -18,14 +18,14 @@ def index(request):
 
 def demand(request):
     non_prof_graphs = NonProfConnectedGraph.objects.filter(page_id='2')
-    prof_graphs = profession.profconnectedgraph_set.filter(page_id='2')
-    comparison_graphs = profession.comparisongraph_set.filter(page_id='2')
+    prof_graphs = profession.profconnectedgraph_set.filter(page_id='2') if profession else None
+    comparison_graphs = profession.comparisongraph_set.filter(page_id='2') if profession else None
     non_prof_table_data = NonProfConnectedTableData.objects.filter(page_id='2')
-    prof_table_data = ProfConnectedTableData.objects.filter(page_id='2')
+    prof_table_data = profession.profconnectedtabledata_set.filter(page_id='2') if profession else None
 
-    non_prof_tables = prepare_table_data(non_prof_table_data)
-    prof_tables = prepare_table_data(prof_table_data)
-    prof_name = profession.name
+    non_prof_tables = open_table_data(non_prof_table_data)
+    prof_tables = open_table_data(prof_table_data) if profession else None
+    prof_name = profession.name if profession else None
     context = {
         'non_prof_graphs': non_prof_graphs,
         'prof_graphs': prof_graphs,
@@ -39,10 +39,10 @@ def demand(request):
 
 def geography(request):
     page_id = 3
-    prof_name = profession.name
+    prof_name = profession.name if profession else None
     graphs = NonProfConnectedGraph.objects.filter(page_id=page_id)
     table_data = NonProfConnectedTableData.objects.filter(page_id=page_id)
-    tables = prepare_table_data(table_data)
+    tables = open_table_data(table_data)
     context = {
         'prof_name': prof_name,
         'graphs': graphs,
@@ -54,19 +54,20 @@ def geography(request):
 def skills(request):
     page_id = 4
     non_prof_graphs = NonProfConnectedGraph.objects.filter(page_id=page_id)
-    prof_graphs = profession.profconnectedgraph_set.filter(page_id=page_id)
     non_prof_table_data = NonProfConnectedTableData.objects.filter(page_id=page_id)
-    prof_table_data = ProfConnectedTableData.objects.filter(page_id=page_id)
+    prof_graphs = profession.profconnectedgraph_set.filter(page_id=page_id) if profession else None
+    table_series_data = profession.tableseriesdata_set.filter(page_id=page_id) if profession else None
 
-    non_prof_tables = prepare_table_data(non_prof_table_data)
-    prof_tables = prepare_table_data(prof_table_data)
-    prof_name = profession.name
+    prof_name = profession.name if profession else None
+    non_prof_tables = open_table_data(non_prof_table_data)
+    years_skills_tables = open_table_series_data(table_series_data) if profession else None
+
     context = {
         'non_prof_graphs': non_prof_graphs,
         'prof_graphs': prof_graphs,
         'prof_name': prof_name,
         'non_prof_tables': non_prof_tables,
-        'prof_tables': prof_tables
+        'years_skills_tables': years_skills_tables
     }
     return render(request, 'profession/skills.html', context=context)
 

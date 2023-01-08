@@ -150,3 +150,21 @@ class ProfConnectedTableData(models.Model):
     class Meta:
         verbose_name = 'Таблица, связанная с профессией'
         verbose_name_plural = 'Таблицы, связанные с профессией'
+
+
+class TableSeriesData(models.Model):
+    label = models.CharField(max_length=250, verbose_name='Название')
+    keys_label = models.CharField(max_length=50, verbose_name='Название левого столбца')
+    values_label = models.CharField(max_length=50, verbose_name='Название правого столбца')
+    data = models.FileField(upload_to='stat_data/', verbose_name='Данные')
+    max_rows = models.IntegerField(verbose_name='Максимальное кол-во строк для одной таблицы', default=10)
+    page = models.ForeignKey('Page', on_delete=models.PROTECT, verbose_name='Страница')
+    profession = models.ForeignKey('Profession', on_delete=models.PROTECT, verbose_name='Профессия', null=True)
+    is_shown = models.BooleanField(default=True, verbose_name='Отображать')
+
+    def __str__(self):
+        return self.label
+
+    class Meta:
+        verbose_name = 'Группа таблиц, содержащих различные варианты одного признака'
+        verbose_name_plural = 'Группы таблиц, содержащих различные варианты одного признака'

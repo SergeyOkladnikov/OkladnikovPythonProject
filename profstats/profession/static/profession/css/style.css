@@ -171,4 +171,7 @@ tr, td, th{
 caption{
     text-align: center;
     padding-bottom: 5px;
+    padding-top: 4px;
+    border: 1px solid grey;
+    border-bottom: none;
 }

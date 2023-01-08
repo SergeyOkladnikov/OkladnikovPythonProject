@@ -1,9 +1,10 @@
 {% extends 'profession/base.html' %}
 
 {% block content %}
+<h1>Главная</h1>
 {% if profession %}
 <div class="main-content">
-<h1>Главная</h1>
+
 {% if profession.text_block_1 %}
 <p>{{ profession.text_block_1 }}</p>
 {% endif %}

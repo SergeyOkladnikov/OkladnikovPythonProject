@@ -4,7 +4,6 @@
 <h1>Навыки</h1>
 <div class="graphs-and-tables">
     <h2>Статистические графики по навыкам</h2>
-    <h3 class="block-header">Самые высокочастотные навыки</h3>
     <div class="graphs-block">
         {% for item in non_prof_graphs %}
         {% if item.is_shown %}
@@ -18,7 +17,9 @@
         {% endfor %}
     </div>
 
+    {% if prof_graphs %}
     <h3 class="block-header">ТОП-10 навыков по годам для профессии {{prof_name}}</h3>
+    {% endif %}
     <div class="graphs-block">
         {% for item in prof_graphs %}
         {% if item.is_shown %}
@@ -34,12 +35,12 @@
 
     <h2>Таблицы</h2>
     <div class="tables-block">
-        {% for key, value in non_prof_tables.items %}
-        {% if key.is_shown %}
+        {% for object, dictionary in non_prof_tables.items %}
+        {% if object.is_shown %}
         <table>
-            <caption>{{key.label}}</caption>
-            <tr><th>{{key.keys_label}}</th><th>{{key.values_label}}</th></tr>
-            {% for key, value in value.items %}
+            <caption>{{object.label}}</caption>
+            <tr><th>{{object.keys_label}}</th><th>{{object.values_label}}</th></tr>
+            {% for key, value in dictionary.items %}
             <tr><td>{{key}}</td><td>{{value}}</td></tr>
             {% endfor %}
         </table>
@@ -47,18 +48,23 @@
         {% endfor %}
     </div>
 
-    <div class="tables-block">
-        {% for key, value in prof_tables.items %}
-        {% if key.is_shown %}
-        <table>
-            <caption>{{key.label}}</caption>
-            <tr><th>{{key.keys_label}}</th><th>{{key.values_label}}</th></tr>
-            {% for key, value in value.items %}
-            <tr><td>{{key}}</td><td>{{value}}</td></tr>
+    {% for object, dictionary in years_skills_tables.items %}
+        {% if object.is_shown %}
+            <h3 class="block-header">{{object.label}}</h3>
+            <div class="tables-block">
+            {% for caption, columns in dictionary.items %}
+                <table>
+                    <caption>{{caption}}</caption>
+                    <tr><th>{{object.keys_label}}</th><th>{{object.values_label}}</th></tr>
+                    {% for key, value in columns.items %}
+                        <tr><td>{{key}}</td><td>{{value}}</td></tr>
+                    {% endfor %}
+                </table>
             {% endfor %}
-        </table>
+            </div>
         {% endif %}
-        {% endfor %}
-    </div>
+    {% endfor %}
+
+
 </div>
 {% endblock %}

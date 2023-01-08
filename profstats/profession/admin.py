@@ -69,6 +69,13 @@ class ProfConnectedTableDataAdmin(admin.ModelAdmin):
     search_fields = ('label',)
 
 
+class TableSeriesDataAdmin(admin.ModelAdmin):
+    list_display = ('label', 'is_shown')
+    list_editable = ('is_shown',)
+    list_display_links = ('label',)
+    search_fields = ('label',)
+
+
 admin.site.register(NavElement, NavElementAdmin)
 admin.site.register(FooterElement, FooterElementAdmin)
 admin.site.register(Header, HeaderAdmin)
@@ -79,3 +86,4 @@ admin.site.register(ComparisonGraph, ComparisonGraphAdmin)
 admin.site.register(Page, PageAdmin)
 admin.site.register(NonProfConnectedTableData, NonProfConnectedTableDataAdmin)
 admin.site.register(ProfConnectedTableData, ProfConnectedTableDataAdmin)
+admin.site.register(TableSeriesData, TableSeriesDataAdmin)
