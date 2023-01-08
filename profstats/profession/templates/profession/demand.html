@@ -1,10 +1,13 @@
 {% extends 'profession/base.html' %}
 
 {% block content %}
-<h1>Востребованность</h1>
 <div class="graphs-and-tables">
-    <h2>Статистические графики о востребованности по годам</h2>
-    <h3 class="block-header">Графики с одной величиной</h3>
+    {% if settings.graphs_block_header %}
+        <h2>{{settings.graphs_block_header}}</h2>
+    {% endif %}
+    {% if settings.one_var_graphs_header %}
+        <h3 class="block-header">{{settings.one_var_graphs_header}}</h3>
+    {% endif %}
     <div class="graphs-block">
         {% for item in non_prof_graphs %}
         {% if item.is_shown %}
@@ -32,7 +35,9 @@
     </div>
 
     {% if comparison_graphs %}
-    <h3 class="block-header">Сравнительные графики</h3>
+    {% if settings.comparison_graphs_header %}
+        <h3 class="block-header">{{settings.comparison_graphs_header}}</h3>
+    {% endif %}
     <div class="graphs-block">
         {% for item in comparison_graphs %}
         {% if item.is_shown %}
@@ -44,7 +49,9 @@
         {% endfor %}
     </div>
     {% endif %}
-    <h2>Таблицы</h2>
+    {% if settings.tables_block_header %}
+        <h2>{{settings.tables_block_header}}</h2>
+    {% endif %}
     <div class="tables-block">
         {% for key, value in non_prof_tables.items %}
         {% if key.is_shown %}

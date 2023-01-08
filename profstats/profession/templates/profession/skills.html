@@ -1,9 +1,14 @@
 {% extends 'profession/base.html' %}
 
 {% block content %}
-<h1>Навыки</h1>
 <div class="graphs-and-tables">
-    <h2>Статистические графики по навыкам</h2>
+    {% if settings.graphs_block_header %}
+        <h2>{{settings.graphs_block_header}}</h2>
+    {% endif %}
+
+    {% if settings.graphs_block_one_header %}
+        <h3 class="block-header">{{settings.graphs_block_one_header}}</h3>
+    {% endif %}
     <div class="graphs-block">
         {% for item in non_prof_graphs %}
         {% if item.is_shown %}
@@ -18,7 +23,9 @@
     </div>
 
     {% if prof_graphs %}
-    <h3 class="block-header">ТОП-10 навыков по годам для профессии {{prof_name}}</h3>
+    {% if settings.graphs_block_two_header %}
+        <h3 class="block-header">{{settings.graphs_block_two_header}} "{{prof_name}}"</h3>
+    {% endif %}
     {% endif %}
     <div class="graphs-block">
         {% for item in prof_graphs %}
@@ -33,7 +40,9 @@
         {% endfor %}
     </div>
 
-    <h2>Таблицы</h2>
+    {% if settings.tables_block_header %}
+        <h2>{{settings.tables_block_header}}</h2>
+    {% endif %}
     <div class="tables-block">
         {% for object, dictionary in non_prof_tables.items %}
         {% if object.is_shown %}

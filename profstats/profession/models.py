@@ -65,6 +65,8 @@ class Profession(models.Model):
 class Page(models.Model):
     name = models.CharField(max_length=70, verbose_name='Название страницы')
     label = models.CharField(max_length=70, verbose_name='Отображаемое имя')
+    title = models.CharField(max_length=50, verbose_name='Заголовок вкладки', blank=True)
+    header = models.CharField(max_length=100, verbose_name='Заголовок страницы', blank=True)
 
     def __str__(self):
         return self.label
@@ -168,3 +170,38 @@ class TableSeriesData(models.Model):
     class Meta:
         verbose_name = 'Группа таблиц, содержащих различные варианты одного признака'
         verbose_name_plural = 'Группы таблиц, содержащих различные варианты одного признака'
+
+
+class DemandPageSettings(models.Model):
+    name = models.CharField(max_length=150)
+    graphs_block_header = models.CharField(max_length=150, blank=True)
+    one_var_graphs_header = models.CharField(max_length=250, blank=True)
+    comparison_graphs_header = models.CharField(max_length=250, blank=True)
+    tables_block_header = models.CharField(max_length=150, blank=True)
+    is_chosen = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+
+class GeographyPageSettings(models.Model):
+    name = models.CharField(max_length=150)
+    graphs_block_header = models.CharField(max_length=150, blank=True)
+    tables_block_header = models.CharField(max_length=150, blank=True)
+    is_chosen = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+
+class SkillsPageSettings(models.Model):
+    name = models.CharField(max_length=150)
+    graphs_block_header = models.CharField(max_length=150, blank=True)
+    graphs_block_one_header = models.CharField(max_length=250, blank=True)
+    graphs_block_two_header = models.CharField(max_length=250, blank=True)
+    tables_block_header = models.CharField(max_length=150, blank=True)
+    is_chosen = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+

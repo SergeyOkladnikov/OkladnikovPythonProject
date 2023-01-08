@@ -16,6 +16,8 @@ def open_table_series_data(table_series_data):
     for series in table_series_data:
         with open(series.data.url[1:], 'r') as file:
             tables = json.load(file)
+            for key in tables.keys():
+                tables[key] = dict(list(tables[key].items())[:series.max_rows])
             series_set[series] = tables
 
     return series_set

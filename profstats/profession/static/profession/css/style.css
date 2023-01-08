@@ -18,8 +18,8 @@ header{
 }
 
 h2{
-    margin-top: 50px;
-    margin-bottom 30px;
+    margin-top: 30px;
+    margin-bottom 5px;
 }
 
 header p{
@@ -118,6 +118,9 @@ footer p span{
 
 .graphs-and-tables{
     max-width: 1420px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .graphs-and-tables img{
@@ -145,8 +148,8 @@ footer p span{
 }
 
 .block-header{
-    margin-top: 40px;
-    margin-bottom: 25px;
+    margin-top: 15px;
+    margin-bottom: 5px;
     font-size: 18px;
 }
 

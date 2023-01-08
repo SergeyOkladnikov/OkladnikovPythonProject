@@ -1,10 +1,10 @@
 {% extends 'profession/base.html' %}
 
 {% block content %}
-<h1>География</h1>
-
 <div class="graphs-and-tables">
-    <h2>Статистические графики по регионам</h2>
+    {% if settings.graphs_block_header %}
+        <h2>{{settings.graphs_block_header}}</h2>
+    {% endif %}
     <div class="graphs-block">
         {% for item in graphs %}
         {% if item.is_shown %}
@@ -18,7 +18,9 @@
         {% endfor %}
     </div>
 
-    <h2>Таблицы</h2>
+    {% if settings.tables_block_header %}
+        <h2>{{settings.tables_block_header}}</h2>
+    {% endif %}
     <div class="tables-block">
         {% for key, value in tables.items %}
         {% if key.is_shown %}
