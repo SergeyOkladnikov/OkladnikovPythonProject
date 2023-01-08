@@ -1,6 +1,5 @@
 from django.shortcuts import render, HttpResponse
 from .models import *
-import json
 from profession.utils import *
 
 if Profession.objects.filter(is_chosen=True):
