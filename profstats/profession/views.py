@@ -92,7 +92,7 @@ def last_vacancies(request):
     date_from = datetime.datetime(datetime_to.year, datetime_to.month, 1).strftime('%Y-%m-%d')
     date_to = datetime_to.strftime('%Y-%m-%d')
 
-    request = requests.get(f'https://api.hh.ru/vacancies?text=Инженер-программист&search_field=name&date_from={date_from}&date_to={date_to}')
+    request = requests.get(f'https://api.hh.ru/vacancies?text={profession.name}&search_field=name&date_from={date_from}&date_to={date_to}')
     vacancies = sorted(request.json()['items'], key=lambda x: x['published_at'])[-10:]
     vac_output = []
     for vacancy in vacancies:
