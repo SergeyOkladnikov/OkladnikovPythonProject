@@ -23,7 +23,6 @@
             </p>
             {% endif %}
         {% endautoescape %}
-        {% if v.key_skills %}
         <p>
             <span style="font-weight: 700">
                 {% if settings %}
@@ -32,11 +31,14 @@
                 Навыки:
                 {% endif %}
             </span>
-            {% for skill in v.key_skills %}
-                {{skill.name}},
-            {% endfor %}
+            {% if v.key_skills %}
+                {% for skill in v.key_skills %}
+                    {{skill.name}},
+                {% endfor %}
+            {% else %}
+            Не указаны
+            {% endif %}
         </p>
-        {% endif %}
         {% if v.employer %}
             <p>
                 <span style="font-weight: 700">
@@ -49,26 +51,28 @@
                 {{v.employer.name}}
             </p>
         {% endif %}
-        {% if v.salary %}
-            <div>
-                <span style="font-weight: 700">
-                    {% if settings %}
-                        {{settings.vac_salary_label}}
-                    {% else %}
-                    Оклад:
-                    {% endif %}
-                </span>
+        <div>
+            <span style="font-weight: 700">
+                {% if settings %}
+                    {{settings.vac_salary_label}}
+                {% else %}
+                Оклад:
+                {% endif %}
+            </span>
+            {% if v.salary %}
                 {% if v.salary.from %}
                     <p>от: {{v.salary.from}}</p>
                 {% endif %}
                 {% if v.salary.to %}
-                <p>до: {{v.salary.to}}</p>
+                    <p>до: {{v.salary.to}}</p>
                 {% endif %}
                 {% if v.salary.currency %}
-                <p>валюта: {{v.salary.currency}}</p>
+                    <p>валюта: {{v.salary.currency}}</p>
                 {% endif %}
-            </div>
-        {% endif %}
+            {% else %}
+            Не указан
+            {% endif %}
+        </div>
         {% if v.area %}
             <p>
                 <span style="font-weight: 700">
@@ -93,6 +97,6 @@
                 {{v.published_at | format_date_string }}
             </p>
         {% endif %}
-        <hr style="border: 2px solid grey; margin-top: 10px;">
+        <hr style="border: 1px solid grey; margin-top: 10px;">
     {% endfor %}
 {% endblock %}
