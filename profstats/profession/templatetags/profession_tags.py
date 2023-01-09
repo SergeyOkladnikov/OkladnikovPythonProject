@@ -24,3 +24,8 @@ def render_header():
     else:
         header = None
     return {'header': header, 'prof_name': profession.name if profession else None}
+
+
+@register.filter
+def format_date_string(value):
+    return f'{value[8:10]}.{value[5:7]}.{value[0:4]}'

@@ -5,7 +5,7 @@
 <div class="main-content">
 
 {% if profession.text_block_1 %}
-<p>{{ profession.text_block_1 }}</p>
+<p>{{ profession.text_block_1 | linebreaksbr}}</p>
 {% endif %}
 {% if profession.image_1 %}
     <div>
@@ -17,7 +17,7 @@
 {% endif %}
 
 {% if profession.text_block_2 %}
-<p>{{ profession.text_block_2 }}</p>
+<p>{{ profession.text_block_2 | linebreaksbr}}</p>
 {% endif %}
 {% if profession.image_2 %}
     <div>
@@ -29,7 +29,7 @@
 {% endif %}
 
 {% if profession.text_block_3 %}
-<p>{{ profession.text_block_3 }}</p>
+<p>{{ profession.text_block_3 | linebreaksbr}}</p>
 {% endif %}
 {% if profession.image_3 %}
     <div>

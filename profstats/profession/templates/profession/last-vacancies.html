@@ -1,3 +1,53 @@
 {% extends 'profession/base.html' %}
+{% load profession_tags %}
+
 {% block content %}
+    {% for v in vacancies %}
+        <h3><a style="color: black" href="{{v.alternate_url}}">{{v.name}}</a></h3>
+        {% autoescape off %}
+            {% if v.description %}
+            <p>{{v.description}}</p>
+            {% endif %}
+        {% endautoescape %}
+        {% if v.key_skills %}
+        <p>
+            <span style="font-weight: 700">Навыки: </span>
+            {% for skill in v.key_skills %}
+                {{skill.name}},
+            {% endfor %}
+        </p>
+        {% endif %}
+        {% if v.employer %}
+            <p>
+                <span style="font-weight: 700">Компания: </span>
+                {{v.employer.name}}
+            </p>
+        {% endif %}
+        {% if v.salary %}
+            <div>
+                <span style="font-weight: 700">Оклад: </span>
+                {% if v.salary.from %}
+                    <p>от: {{v.salary.from}}</p>
+                {% endif %}
+                {% if v.salary.to %}
+                <p>до: {{v.salary.to}}</p>
+                {% endif %}
+                {% if v.salary.currency %}
+                <p>валюта: {{v.salary.currency}}</p>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if v.area %}
+            <p>
+                <span style="font-weight: 700">Название региона: </span>
+                {{v.area.name}}
+            </p>
+        {% endif %}
+        {% if v.published_at %}
+            <p>
+                <span style="font-weight: 700">Дата публикации вакансии: </span>
+                {{v.published_at | format_date_string }}
+            </p>
+        {% endif %}
+    {% endfor %}
 {% endblock %}
