@@ -3,15 +3,35 @@
 
 {% block content %}
     {% for v in vacancies %}
-        <h3><a style="color: black" href="{{v.alternate_url}}">{{v.name}}</a></h3>
+        <h3>
+            {% if settings %}
+            <span style="font-weight: 700">
+                    {{settings.vac_name_label}}
+            </span>
+            {% endif %}
+            <a style="color: black" href="{{v.alternate_url}}">{{v.name}}</a>
+        </h3>
         {% autoescape off %}
             {% if v.description %}
-            <p>{{v.description}}</p>
+            <p>
+                {% if settings %}
+                <span style="font-weight: 700">
+                    {{settings.vac_description_label}}
+                </span>
+                {% endif %}
+                {{v.description}}
+            </p>
             {% endif %}
         {% endautoescape %}
         {% if v.key_skills %}
         <p>
-            <span style="font-weight: 700">Навыки: </span>
+            <span style="font-weight: 700">
+                {% if settings %}
+                    {{settings.vac_key_skills_label}}
+                {% else %}
+                Навыки:
+                {% endif %}
+            </span>
             {% for skill in v.key_skills %}
                 {{skill.name}},
             {% endfor %}
@@ -19,13 +39,25 @@
         {% endif %}
         {% if v.employer %}
             <p>
-                <span style="font-weight: 700">Компания: </span>
+                <span style="font-weight: 700">
+                    {% if settings %}
+                        {{settings.vac_employer_name_label}}
+                    {% else %}
+                    Компания:
+                    {% endif %}
+                </span>
                 {{v.employer.name}}
             </p>
         {% endif %}
         {% if v.salary %}
             <div>
-                <span style="font-weight: 700">Оклад: </span>
+                <span style="font-weight: 700">
+                    {% if settings %}
+                        {{settings.vac_salary_label}}
+                    {% else %}
+                    Оклад:
+                    {% endif %}
+                </span>
                 {% if v.salary.from %}
                     <p>от: {{v.salary.from}}</p>
                 {% endif %}
@@ -39,13 +71,25 @@
         {% endif %}
         {% if v.area %}
             <p>
-                <span style="font-weight: 700">Название региона: </span>
+                <span style="font-weight: 700">
+                    {% if settings %}
+                        {{settings.vac_area_name_label}}
+                    {% else %}
+                    Название региона:
+                    {% endif %}
+                </span>
                 {{v.area.name}}
             </p>
         {% endif %}
         {% if v.published_at %}
             <p>
-                <span style="font-weight: 700">Дата публикации вакансии: </span>
+                <span style="font-weight: 700">
+                    {% if settings %}
+                        {{settings.vac_published_at_label}}
+                    {% else %}
+                    Дата публикации вакансии:
+                    {% endif %}
+                </span>
                 {{v.published_at | format_date_string }}
             </p>
         {% endif %}

@@ -84,22 +84,28 @@ def skills(request):
 
 
 def last_vacancies(request):
-    page = Page.objects.get(name='last-vacancies')
     import datetime
     import requests
-    today = datetime.datetime.today()
-    datetime_to = datetime.datetime(today.year, today.month, 1) - datetime.timedelta(days=1)
-    date_from = datetime.datetime(datetime_to.year, datetime_to.month, 1).strftime('%Y-%m-%d')
-    date_to = datetime_to.strftime('%Y-%m-%d')
+    page = Page.objects.get(name='last-vacancies')
+    settings = LastVacanciesPageSettings.objects.filter(is_chosen=True).last()
+    if settings:
+        date_from = settings.date.strftime('%Y-%m-%d')
+        date_to = settings.date.strftime('%Y-%m-%d')
+    else:
+        today = datetime.datetime.today()
+        datetime_to = datetime.datetime(today.year, today.month, 1) - datetime.timedelta(days=1)
+        date_from = datetime.datetime(datetime_to.year, datetime_to.month, 1).strftime('%Y-%m-%d')
+        date_to = datetime_to.strftime('%Y-%m-%d')
 
     request = requests.get(f'https://api.hh.ru/vacancies?text={profession.name}&search_field=name&date_from={date_from}&date_to={date_to}')
-    vacancies = sorted(request.json()['items'], key=lambda x: x['published_at'])[-10:]
+    vacancies = sorted(request.json()['items'], key=lambda x: x['published_at'])[-(settings.vacancies_count if settings else 10):]
     vac_output = []
     for vacancy in vacancies:
         full_vacancy = requests.get(f'https://api.hh.ru/vacancies/{vacancy["id"]}').json()
         vac_output.append(full_vacancy)
     context = {
         'page': page,
+        'settings': settings,
         'vacancies': vac_output
     }
     return render(request, 'profession/last-vacancies.html', context=context)

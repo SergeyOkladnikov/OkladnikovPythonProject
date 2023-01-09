@@ -205,3 +205,19 @@ class SkillsPageSettings(models.Model):
     def __str__(self):
         return self.name
 
+
+class LastVacanciesPageSettings(models.Model):
+    name = models.CharField(max_length=150)
+    date = models.DateField()
+    vacancies_count = models.IntegerField(default=10)
+    vac_name_label = models.CharField(max_length=150, blank=True)
+    vac_description_label = models.CharField(max_length=150, blank=True)
+    vac_key_skills_label = models.CharField(max_length=150, blank=True)
+    vac_employer_name_label = models.CharField(max_length=150, blank=True)
+    vac_salary_label = models.CharField(max_length=150, blank=True)
+    vac_area_name_label = models.CharField(max_length=150, blank=True)
+    vac_published_at_label = models.CharField(max_length=150, blank=True)
+    is_chosen = models.BooleanField(default=True, blank=True)
+
+    def __str__(self):
+        return self.name

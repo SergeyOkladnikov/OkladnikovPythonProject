@@ -97,6 +97,13 @@ class SkillsPageSettingsAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
+class LastVacanciesPageSettingsAdmin(admin.ModelAdmin):
+    list_display = ('name', 'is_chosen')
+    list_editable = ('is_chosen',)
+    list_display_links = ('name',)
+    search_fields = ('name',)
+
+
 admin.site.register(NavElement, NavElementAdmin)
 admin.site.register(FooterElement, FooterElementAdmin)
 admin.site.register(Header, HeaderAdmin)
@@ -111,3 +118,4 @@ admin.site.register(TableSeriesData, TableSeriesDataAdmin)
 admin.site.register(DemandPageSettings, DemandPageSettingsAdmin)
 admin.site.register(GeographyPageSettings, GeographyPageSettingsAdmin)
 admin.site.register(SkillsPageSettings, SkillsPageSettingsAdmin)
+admin.site.register(LastVacanciesPageSettings, LastVacanciesPageSettingsAdmin)
