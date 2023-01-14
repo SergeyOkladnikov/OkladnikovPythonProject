@@ -1,13 +1,16 @@
 import json
 from stats import *
 
-csv_years_path = 'input_data/vacancies_with_skills.csv'
-csv_areas_path = 'input_data/vacancies_by_years.csv'
+csv_skills_path = 'input_data/vacancies_with_skills.csv'
+csv_years_path = 'input_data/vacancies_dif_currencies.csv'
 
 prof = 'Инженер-программист'
 
+df_skills = pd.read_csv(csv_skills_path, header=0, dtype={'name': str, 'key_skills': str, 'salary_from': float, 'salary_to': float, 'salary_currency': str, 'published_at': str})
 df_years = pd.read_csv(csv_years_path, header=0, dtype={'name': str, 'key_skills': str, 'salary_from': float, 'salary_to': float, 'salary_currency': str, 'published_at': str})
-df_areas = pd.read_csv(csv_areas_path, header=0, dtype={'name': str, 'key_skills': str, 'salary_from': float, 'salary_to': float, 'salary_currency': str, 'published_at': str})
+
+df_skills.published_at = pd.to_datetime(df_skills.published_at, utc=True)
+df_skills['year'] = df_skills.published_at.dt.to_period('Y').apply(lambda x: int(str(x)))
 
 df_years.published_at = pd.to_datetime(df_years.published_at, utc=True)
 df_years['year'] = df_years.published_at.dt.to_period('Y').apply(lambda x: int(str(x)))
@@ -16,10 +19,10 @@ year_salary_dynamics = get_years_salary_dynamics(df_years)
 num_of_vacancies_per_year = get_years_vac_num_dynamics(df_years)
 year_salary_dynamics_for_prof = get_years_salary_dynamics_for_prof(df_years, profession=prof)
 num_of_vacancies_per_year_for_prof = get_years_vac_num_dynamics_for_prof(df_years, profession=prof)
-vacancy_fractions_of_areas = get_vacancy_fractions_of_areas(df_areas, 0.01)
-salary_levels_of_areas = get_salaries_of_areas(df_areas, vacancy_fractions_of_areas)
-top_skills_total = get_top_skills_total(df_years)
-top_skills_of_years = get_top_skills_of_years(df_years, prof)
+vacancy_fractions_of_areas = get_vacancy_fractions_of_areas(df_years, 0.01)
+salary_levels_of_areas = get_salaries_of_areas(df_years, vacancy_fractions_of_areas)
+top_skills_total = get_top_skills_total(df_skills)
+top_skills_of_years = get_top_skills_of_years(df_skills, profession=prof)
 
 make_hist(year_salary_dynamics, 'Динамика уровня зарплат по годам', 'years_salary')
 make_hist(num_of_vacancies_per_year, 'Динамика количества вакансий по годам', 'years_vac_num')
