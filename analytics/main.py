@@ -27,14 +27,14 @@ make_hist(year_salary_dynamics_for_prof, f'Динамика уровня зар�
 make_hist(num_of_vacancies_per_year_for_prof, f'Динамика количества вакансий по годам\n для профессии {prof}', 'years_vac_num_for_prof')
 make_comparison_hist(year_salary_dynamics,
                      year_salary_dynamics_for_prof,
-                     'Инженер-программист',
+                     prof,
                      'Динамика уровня зарплат по годам',
                      'Средняя з/п',
                      'years_salary')
 
 make_comparison_hist(common_stat_dict=num_of_vacancies_per_year,
                      prof_stat_dict=num_of_vacancies_per_year_for_prof,
-                     profession='Инженер-программист',
+                     profession=prof,
                      title='Динамика количества вакансий по годам',
                      legend='Количество вакансий',
                      name='years_vac_num')
